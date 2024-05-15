@@ -1,0 +1,78 @@
+public class Trainee {
+
+
+    public long[] solution(long[] array) {
+        int tail = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] >= 0 && array[i] % 2 == 0) {
+                array[tail] = array[i];
+                tail++;
+            }
+        }
+        long[] result = new long[tail];
+        for (int i = 0; i < tail; i++) {
+            result[i] = array[i];
+        }
+        return result;
+    }
+
+    public int[] solution(int[] arrayOne, int[] arrayTwo, int[] arrayThree) {
+        int[] result = new int[arrayOne.length + arrayTwo.length + arrayThree.length];
+        int firstPointer = arrayOne.length - 1;
+        int secondPointer = arrayTwo.length - 1;
+        int thirdPointer = arrayThree.length - 1;
+        for (int i = 0; i < result.length; i++) {
+            if (firstPointer < 0) {
+                if (secondPointer < 0) {
+                    result[i] = arrayThree[thirdPointer];
+                    thirdPointer--;
+                } else if (thirdPointer < 0) {
+                    result[i] = arrayTwo[secondPointer];
+                    secondPointer--;
+                } else {
+                    if (arrayTwo[secondPointer] > arrayThree[thirdPointer]) {
+                        result[i] = arrayThree[thirdPointer];
+                        thirdPointer--;
+                    } else {
+                        result[i] = arrayTwo[secondPointer];
+                        secondPointer--;
+                    }
+                }
+            } else if (secondPointer < 0) {
+                if (thirdPointer < 0) {
+                    result[i] = arrayOne[firstPointer];
+                    firstPointer--;
+                } else {
+                    if (arrayOne[firstPointer] > arrayThree[thirdPointer]) {
+                        result[i] = arrayThree[thirdPointer];
+                        thirdPointer--;
+                    } else {
+                        result[i] = arrayOne[firstPointer];
+                        firstPointer--;
+                    }
+                }
+            } else if (thirdPointer < 0) {
+                    if (arrayOne[firstPointer] > arrayTwo[secondPointer]) {
+                        result[i] = arrayTwo[secondPointer];
+                        secondPointer--;
+                    } else {
+                        result[i] = arrayOne[firstPointer];
+                        firstPointer--;
+                    }
+                }
+            else {
+                if(arrayOne[firstPointer] <= arrayTwo[secondPointer] && arrayOne[firstPointer] <= arrayThree[thirdPointer]){
+                    result[i] = arrayOne[firstPointer];
+                    firstPointer--;
+                } else if (arrayTwo[secondPointer] <= arrayThree[thirdPointer]){
+                    result[i] = arrayTwo[secondPointer];
+                    secondPointer--;
+                } else {
+                    result[i] = arrayThree[thirdPointer];
+                    thirdPointer--;
+                }
+            }
+        }
+        return result;
+    }
+}
